@@ -8,7 +8,7 @@ You can tweak goflect with environment variables.
 ```
 PORT=8080
 DOMAIN=https://example.com
-POSTGRES_URL=postgres://postgres@localhost:5432/goflect
+POSTGRES_URL=postgres://username:password@localhost:5432/goflect
 REDIS_URL=redis://localhost:6379
 ```
 

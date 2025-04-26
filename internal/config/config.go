@@ -12,9 +12,9 @@ type Config struct {
 func Load() Config {
 	return Config{
 		RedisURL:    getEnv("REDIS_URL", "redis://localhost:6379"),
-		PostgresURL: getEnv("POSTGRES_URL", "postgres://postgres@localhost:5432/goflect"),
+		PostgresURL: getEnv("POSTGRES_URL", "postgres://username:password@localhost:5432/goflect"),
 		Domain:      getEnv("DOMAIN", "localhost"),
-		Port:        getEnv("HTTPS_PORT", "8000"),
+		Port:        getEnv("PORT", "8080"),
 	}
 }
 
