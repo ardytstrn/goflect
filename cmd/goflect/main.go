@@ -18,6 +18,7 @@ func main() {
 	cfg := config.Load()
 
 	logger, _ := setupLogger()
+
 	defer logger.Sync()
 
 	// Initialize PostgreSQL connection pool
