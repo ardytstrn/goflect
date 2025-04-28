@@ -4,21 +4,31 @@ services:
       context: .
     image: goflect:latest
     environment:
-      - POSTGRES_URL=postgres://username:password@postgres:5432/goflect
-      - PORT=8000
+      - POSTGRES_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - PORT=${PORT}
+      - REDIS_URL=${REDIS_URL}
     ports:
-      - "8000:8000"
+      - "${PORT}:${PORT}"
     depends_on:
       - postgres
+    restart: unless-stopped
   
   postgres:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: goflect
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    
+  redis:
+    image: redis:alpine
+    volumes:
+      - redisdata:/data
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  redisdata:

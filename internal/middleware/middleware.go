@@ -23,7 +23,7 @@ func (rw *responseWriter) WriteHeader(status int) {
 
 func Chain(next http.Handler, app *handlers.App) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		app.Logger.Info("Request",
+		app.Logger.Debug("Request",
 			zap.String("method", r.Method),
 			zap.String("path", r.URL.Path),
 		)

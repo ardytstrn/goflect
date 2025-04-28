@@ -1,2 +1,4 @@
 /goflect
 docker-compose.yml
+.env
+dump.rdb

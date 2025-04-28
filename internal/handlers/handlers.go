@@ -7,6 +7,7 @@ import (
 	"github.com/ardytstrn/goflect/internal/logger"
 	"github.com/ardytstrn/goflect/pkg/idgenerator"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/redis/go-redis/v9"
 )
 
 type App struct {
@@ -14,6 +15,7 @@ type App struct {
 	Logger    logger.Logger
 	Snowflake *idgenerator.Snowflake
 	PgPool    *pgxpool.Pool
+	Redis     *redis.Client
 }
 
 type ErrResponse struct {
