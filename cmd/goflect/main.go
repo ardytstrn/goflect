@@ -50,6 +50,7 @@ func main() {
 
 	router := http.NewServeMux()
 	router.HandleFunc("/api/shorten", app.ShortenHandler)
+	router.HandleFunc("/{shortCode}", app.RedirectHandler)
 
 	server := &http.Server{
 		Addr:    ":" + cfg.Port,

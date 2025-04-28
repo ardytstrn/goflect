@@ -13,6 +13,10 @@ type responseWriter struct {
 }
 
 func (rw *responseWriter) WriteHeader(status int) {
+	if rw.status != 0 {
+		return
+	}
+
 	rw.status = status
 	rw.ResponseWriter.WriteHeader(status)
 }
@@ -26,7 +30,7 @@ func Chain(next http.Handler, app *handlers.App) http.Handler {
 
 		ww := &responseWriter{ResponseWriter: w}
 
-		w.Header().Set("Content-Security-Policy", "default-src 'self")
+		w.Header().Set("Content-Security-Policy", "default-src 'self'")
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("X-Frame-Options", "DENY")
 
