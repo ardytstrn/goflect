@@ -9,6 +9,7 @@ import (
 	"github.com/ardytstrn/goflect/internal/logger"
 	"github.com/ardytstrn/goflect/internal/middleware"
 	"github.com/ardytstrn/goflect/pkg/idgenerator"
+	"github.com/fatih/color"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 	"github.com/redis/go-redis/v9"
@@ -22,6 +23,8 @@ func main() {
 	cfg := config.Load()
 
 	logger, _ := setupLogger(cfg.Environment)
+
+	printBanner(logger)
 
 	logger.Debug("Config",
 		zap.String("environment", cfg.Environment),
@@ -93,6 +96,23 @@ func main() {
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		logger.Fatal("Server error", zap.Error(err))
 	}
+}
+
+func printBanner(zl *logger.ZapLogger) {
+	banner := `
+
+   ▄██████▄   ▄██████▄     ▄████████  ▄█          ▄████████  ▄████████     ███     
+  ███    ███ ███    ███   ███    ███ ███         ███    ███ ███    ███ ▀█████████▄ 
+  ███    █▀  ███    ███   ███    █▀  ███         ███    █▀  ███    █▀     ▀███▀▀██ 
+ ▄███        ███    ███  ▄███▄▄▄     ███        ▄███▄▄▄     ███            ███   ▀ 
+▀▀███ ████▄  ███    ███ ▀▀███▀▀▀     ███       ▀▀███▀▀▀     ███            ███     
+  ███    ███ ███    ███   ███        ███         ███    █▄  ███    █▄      ███     
+  ███    ███ ███    ███   ███        ███▌    ▄   ███    ███ ███    ███     ███     
+  ████████▀   ▀██████▀    ███        █████▄▄██   ██████████ ████████▀     ▄████▀   
+                                     ▀                                             
+																		 `
+
+	zl.Info(color.RGB(1, 173, 216).Sprintf(banner))
 }
 
 func setupLogger(environment string) (*logger.ZapLogger, error) {
